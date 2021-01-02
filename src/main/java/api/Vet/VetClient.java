@@ -13,6 +13,14 @@ import io.restassured.mapper.ObjectMapperType;
 public class VetClient extends ApiClient {
 
 
+    public VetClient(String baseUrl , String vetId){
+
+        super(baseUrl, "/api/vets/"+vetId);
+        ObjectMapperConfig config = new ObjectMapperConfig(ObjectMapperType.GSON)
+                .gsonObjectMapperFactory((type, s) -> new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create());
+        setObjectMapper(new GsonMapper(config.gsonObjectMapperFactory()));
+
+    }
     public VetClient (String baseUrl) {
         super(baseUrl, "/api/vets");
 
@@ -32,15 +40,14 @@ public class VetClient extends ApiClient {
         ApiResponse<Vet> response = caller.executeRequest(request, Method.POST, Vet.class);
         return response.getContent();
     }
-/*
-        public Vet deleteVet(Vet vet) throws InvalidResponseException{
-        ApiRequest delRequest = getRequest().withBody(vet).withHeader("Content-Type", "application/json");
-            VetClient   deletevet = new VetClient("/api/vets/{vetId}");
-        ApiResponse<Vet> delResponse = caller.executeRequest(delRequest, Method.DELETE, Vet.class);
-        return delResponse.getContent();
+
+    public ApiResponse<Vet[]> deleteId(){
+
+        ApiResponse<Vet[]> response = caller.executeRequest(getRequest(), Method.DELETE, Vet[].class);
+        return response;
 
     }
-    */
+
 
 }
 

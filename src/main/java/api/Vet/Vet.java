@@ -22,18 +22,7 @@ public class Vet {
 
     @Expose
     private List<specialities> specialities;
-/*
-    @Override
-    public String toString() {
-        return "Vet{" +
-                "firstName='" + firstName + '\'' +
-                ", LastName='" + lastName + '\'' +
-                ", id=" + id +
-                ", specialities=" + specialities +
-                '}';
 
-
-    }*/
 
 
 }

@@ -10,16 +10,9 @@ import lombok.Getter;
 public class specialities {
 
     @Expose
-    private Long id;
+    private String id;
 
     @Expose
     private String name;
 
-   /* @Override
-    public String toString() {
-        return "specialities{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
-    }*/
 }
