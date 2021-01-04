@@ -18,21 +18,16 @@ public class VetApiTest<apiUrl> {
 
 
     @Test
-    public void get_Create_Delete () throws InvalidResponseException {
-
-        //1.Fetching the details of Vet - METHOD-GET
+    public void get_Create_Delete () throws InvalidResponseException{
         getVetInfo();
-        //2.Creating the details of Vet - METHOD-POST
         createVetInfo();
-        //3.Delete the details of Vet - METHOD-DELETE
         deleteVetInfo();
     }
 
 
-    public void getVetInfo() throws InvalidResponseException{
+    public void getVetInfo() throws InvalidResponseException {
         VetClient client = new VetClient(apiUrl);
         Vet[] vets = client.getVet();
-
 
         SoftAssertions softly = new SoftAssertions();
         softly.assertThat(vets[1].getFirstName()).isEqualTo("Helen");
@@ -47,16 +42,15 @@ public class VetApiTest<apiUrl> {
     public void createVetInfo() throws InvalidResponseException {
 
         VetClient client = new VetClient(apiUrl);
-        Vet createdVet = client.createVet(Vet.builder().firstName("prishika").lastName("peter").build());
+        Vet createdVet = client.createVet(Vet.builder().firstName("Infanta").lastName("prishika").build());
 
         SoftAssertions softly = new SoftAssertions();
-        softly.assertThat(createdVet.getFirstName()).isEqualTo("prishika");
-        softly.assertThat(createdVet.getLastName()).isEqualTo("peter");
+        softly.assertThat(createdVet.getFirstName()).isEqualTo("Infanta");
+        softly.assertThat(createdVet.getLastName()).isEqualTo("prishika");
 
         vetId=createdVet.getId();
     }
 
-   
 
 
     public void deleteVetInfo() throws InvalidResponseException{
