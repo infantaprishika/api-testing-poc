@@ -19,8 +19,11 @@ public class VetApiTest<apiUrl> {
 
     @Test
     public void get_Create_Delete () throws InvalidResponseException{
+        //FETCH DETAILS OF VET USING METHOD: GET
         getVetInfo();
+        //CREATE DETAILS FOR VET USING METHOD: POST
         createVetInfo();
+        //DELETING DETAILS OF VET USING METHOD: DELETE
         deleteVetInfo();
     }
 

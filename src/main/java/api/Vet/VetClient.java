@@ -28,19 +28,20 @@ public class VetClient extends ApiClient {
                 .gsonObjectMapperFactory((type, s) -> new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create());
         setObjectMapper(new GsonMapper(config.gsonObjectMapperFactory()));
     }
-
+   //METHOD: GET
     public Vet[] getVet() throws InvalidResponseException {
         ApiResponse<Vet[]> response = caller.executeRequest(getRequest(), Method.GET, Vet[].class);
         return  response.getContent();
     }
 
-
+    //METHOD: POST
     public Vet createVet(Vet vet) throws InvalidResponseException {
         ApiRequest request = getRequest().withBody(vet).withHeader("Content-Type", "application/json");
         ApiResponse<Vet> response = caller.executeRequest(request, Method.POST, Vet.class);
         return response.getContent();
     }
 
+    //METHOD: DELETE
     public ApiResponse<Vet[]> deleteId(){
 
         ApiResponse<Vet[]> response = caller.executeRequest(getRequest(), Method.DELETE, Vet[].class);
