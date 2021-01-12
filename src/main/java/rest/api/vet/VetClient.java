@@ -1,4 +1,4 @@
-package api.Vet;
+package rest.api.vet;
 
 import api.common.ApiClient;
 import api.common.ApiRequest;
@@ -13,22 +13,17 @@ import io.restassured.mapper.ObjectMapperType;
 public class VetClient extends ApiClient {
 
 
-    public VetClient(String baseUrl , String vetId){
 
-        super(baseUrl, "/api/vets/"+vetId);
-        ObjectMapperConfig config = new ObjectMapperConfig(ObjectMapperType.GSON)
-                .gsonObjectMapperFactory((type, s) -> new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create());
-        setObjectMapper(new GsonMapper(config.gsonObjectMapperFactory()));
+    public VetClient (String baseUrl, String basePathVets) {
+        super(baseUrl, basePathVets);
 
-    }
-    public VetClient (String baseUrl) {
-        super(baseUrl, "/api/vets");
 
         ObjectMapperConfig config = new ObjectMapperConfig(ObjectMapperType.GSON)
                 .gsonObjectMapperFactory((type, s) -> new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create());
         setObjectMapper(new GsonMapper(config.gsonObjectMapperFactory()));
     }
-   //METHOD: GET
+
+    //METHOD: GET
     public Vet[] getVet() throws InvalidResponseException {
         ApiResponse<Vet[]> response = caller.executeRequest(getRequest(), Method.GET, Vet[].class);
         return  response.getContent();
@@ -42,12 +37,12 @@ public class VetClient extends ApiClient {
     }
 
     //METHOD: DELETE
-    public ApiResponse<Vet[]> deleteId(){
+    public ApiResponse<Vet[]> deleteVet(){
 
         ApiResponse<Vet[]> response = caller.executeRequest(getRequest(), Method.DELETE, Vet[].class);
         return response;
-
     }
+
 
 
 }

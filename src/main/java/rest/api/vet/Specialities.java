@@ -1,5 +1,5 @@
 
-package api.Vet;
+package rest.api.vet;
 
 import com.google.gson.annotations.Expose;
 import lombok.Builder;
@@ -7,7 +7,7 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class specialities {
+public class Specialities {
 
     @Expose
     private String id;

@@ -1,23 +1,29 @@
-import api.Vet.Vet;
-import api.Vet.VetClient;
 import api.common.ApiResponse;
 import api.common.exception.InvalidResponseException;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import rest.api.vet.Vet;
+import rest.api.vet.VetClient;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
 
 public class VetApiTest<apiUrl> {
 
     static String apiUrl;
     private String vetId;
 
+
     @BeforeAll
     static void getApiUrl() {
         apiUrl = System.getProperty("apiUrl");
     }
 
+/*
 
-    @Test
     public void get_Create_Delete () throws InvalidResponseException{
         //FETCH DETAILS OF VET USING METHOD: GET
         getVetInfo();
@@ -26,10 +32,11 @@ public class VetApiTest<apiUrl> {
         //DELETING DETAILS OF VET USING METHOD: DELETE
         deleteVetInfo();
     }
-
-
+*/
+   @Test
+   @Order(1)
     public void getVetInfo() throws InvalidResponseException {
-        VetClient client = new VetClient(apiUrl);
+        VetClient client = new VetClient(apiUrl, "/api/vets");
         Vet[] vets = client.getVet();
 
         SoftAssertions softly = new SoftAssertions();
@@ -41,31 +48,43 @@ public class VetApiTest<apiUrl> {
 
 
 
+ @Test
+ @Order(2)
+    public void createVetInfo() throws InvalidResponseException, IOException {
+     Properties prop=new Properties();
 
-    public void createVetInfo() throws InvalidResponseException {
+     FileInputStream fis =new FileInputStream("D:\\Petclinic_RestAssured\\src\\main\\java\\rest\\api\\vet\\data.properties");
 
-        VetClient client = new VetClient(apiUrl);
-        Vet createdVet = client.createVet(Vet.builder().firstName("Infanta").lastName("prishika").build());
+     prop.load(fis);
+        VetClient client = new VetClient(apiUrl, "/api/vets/");
+        Vet createdVet = client.createVet(Vet.builder().firstName(prop.getProperty("FirstName")).lastName(prop.getProperty("LastName")).build());
 
         SoftAssertions softly = new SoftAssertions();
-        softly.assertThat(createdVet.getFirstName()).isEqualTo("Infanta");
-        softly.assertThat(createdVet.getLastName()).isEqualTo("prishika");
+        softly.assertThat(createdVet.getFirstName()).isEqualTo(prop.getProperty("Firstname"));
+        softly.assertThat(createdVet.getLastName()).isEqualTo(prop.getProperty("LastName"));
 
         vetId=createdVet.getId();
     }
 
 
+@Test
+@Order(3)
+public void deleteVetInfo() throws InvalidResponseException{
 
-    public void deleteVetInfo() throws InvalidResponseException{
+        VetClient client = new VetClient(apiUrl,"/api/vets");
 
-        VetClient client = new VetClient(apiUrl,vetId);
-        ApiResponse<Vet[]> deleteVet =client.deleteId();
+    Vet newvet = client.createVet(Vet.builder().firstName("prishika").lastName("peter").build());
+    String id = newvet.getId();
 
-        SoftAssertions softly= new SoftAssertions();
+    VetClient client1= new VetClient(apiUrl,"/api/vets/" + vetId);
+    ApiResponse<Vet[]> deleteVet =client.deleteVet();
+
+
+    SoftAssertions softly= new SoftAssertions();
         softly.assertThat(deleteVet.getHttpStatusCode()).isEqualTo(204);
 
-
         softly.assertAll();
+
 
     }
 

@@ -1,5 +1,5 @@
 
-package api.Vet;
+package rest.api.vet;
 
 import com.google.gson.annotations.Expose;
 import lombok.Builder;
@@ -21,7 +21,7 @@ public class Vet {
     private String id;
 
     @Expose
-    private List<specialities> specialities;
+    private List<Specialities> specialities;
 
 
 
