@@ -1,5 +1,5 @@
 
-package rest.api.vet;
+package com.fedex.vetapi;
 
 import com.google.gson.annotations.Expose;
 import lombok.Builder;

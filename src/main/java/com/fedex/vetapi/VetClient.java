@@ -1,4 +1,4 @@
-package rest.api.vet;
+package com.fedex.vetapi;
 
 import api.common.ApiClient;
 import api.common.ApiRequest;

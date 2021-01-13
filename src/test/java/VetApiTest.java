@@ -4,8 +4,8 @@ import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
-import rest.api.vet.Vet;
-import rest.api.vet.VetClient;
+import com.fedex.vetapi.Vet;
+import com.fedex.vetapi.VetClient;
 
 import java.io.FileInputStream;
 import java.io.IOException;
